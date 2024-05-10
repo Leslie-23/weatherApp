@@ -11,8 +11,8 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Header />
-    <DisplayCountriesWeather />
     <App />
+    <DisplayCountriesWeather />
     {/* <Footer /> */}
   </React.StrictMode>
 );
