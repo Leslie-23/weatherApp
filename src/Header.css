@@ -1,0 +1,88 @@
+h1 {
+  font-family: "Times New Roman", Times, serif;
+  padding-top: 7px;
+  /* font-weight: bold; */
+}
+.poetsen-one-regular {
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 400;
+  font-size: 60px;
+  font-style: normal;
+}
+
+.wrapper {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  background-image: url(../public/weather-banner-vector.jpg);
+  background-repeat: no-repeat;
+  padding: 20px;
+  width: 100vw;
+}
+@media (max-width: 576px) {
+  /* Further adjustments for smaller screens */
+  h1 {
+    font-size: 24px; /* Decrease font size for h1 on smaller screens */
+  }
+  .poetsen-one-regular {
+    font-size: 30px; /* Decrease font size for .poetsen-one-regular on smaller screens */
+  }
+  .wrapper {
+    padding-bottom: 8px; /* Decrease padding for .wrapper on smaller screens */
+    padding-top: 3px; /* Decrease padding for .wrapper on smaller screens */
+  }
+}
+
+/*  */
+.saira-condensed-thin {
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.saira-condensed-extralight {
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.saira-condensed-light {
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.saira-condensed-regular {
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.saira-condensed-medium {
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.saira-condensed-semibold {
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.saira-condensed-bold {
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.saira-condensed-extrabold {
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.saira-condensed-black {
+  font-family: "Saira Condensed", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
