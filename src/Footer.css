@@ -1,0 +1,45 @@
+.footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #000000;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  transition: transform 0.3s ease; /* Smooth transition for animation */
+}
+
+.wavy-border {
+  border-top: 10px solid #007fbe; /* White border for the top */
+  animation: waveAnimation 2s infinite alternate; /* Wavy animation */
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.footer-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: #007bff; /* Change color on hover */
+}
+@keyframes waveAnimation {
+  from {
+    transform: translateY(-3px); /* Initial position */
+  }
+  to {
+    transform: translateY(3px); /* Final position */
+  }
+}
+p:hover {
+  color: #007bff;
+  transition: color 0.3s ease;
+}
