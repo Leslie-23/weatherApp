@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-import DisplayCountriesWeather from "./DisplayCountries";
+//mport DisplayCountriesWeather from "./DisplayCountries";
 
 function App() {
   const [city, setCity] = useState("");
@@ -37,7 +37,6 @@ function App() {
 
   return (
     <div className="container">
-      <DisplayCountriesWeather />
       {/* <div>{weatherData.location.}</div> */}
       <div className="weather-app">
         {/* <h1 className="weather-appH1">Weather App</h1> */}

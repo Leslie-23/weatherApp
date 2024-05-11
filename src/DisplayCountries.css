@@ -1,6 +1,7 @@
 /* Add this CSS to your stylesheets or within your React component */
 .countries-weather {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
@@ -8,7 +9,7 @@
 
 .country-weather {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 5px;

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import Header from "./Header";
 import App from "./App";
-import Footer from "./Footer";
+//import Footer from "./Footer";
 import DisplayCountriesWeather from "./DisplayCountries";
 //import reportWebVitals from './reportWebVitals';
 
@@ -13,6 +13,7 @@ root.render(
     <Header />
     <App />
     <DisplayCountriesWeather />
+    {/* <DisplayCountriesWeather /> */}
     {/* <Footer /> */}
   </React.StrictMode>
 );
