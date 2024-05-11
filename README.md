@@ -1,6 +1,7 @@
 # Weather App
 
 This Weather App is a simple React application that displays weather information for multiple countries using the WeatherAPI.
+(View Live Demo)[paltech-weather.netlify.app]
 
 ## Features
 
@@ -15,7 +16,7 @@ Responsive design for various screen sizes.
 
 ## Installation
 - Clone the repository:
-### `git clone https://github.com/your-username/weather-app.git`
+### `git clone https://github.com/your-username/weatherApp.git`
 
 - Navigate to the project directory:
 
