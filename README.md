@@ -1,7 +1,7 @@
 # Weather App
 
 This Weather App is a simple React application that displays weather information for multiple countries using the WeatherAPI.
-
+[View Live Demo](paltech-weather.netlify.app)
 
 ## Features
 
