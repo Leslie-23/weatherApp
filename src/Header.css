@@ -1,6 +1,7 @@
 h1 {
   font-family: "Times New Roman", Times, serif;
   padding-top: 7px;
+  color: white;
   /* font-weight: bold; */
 }
 .poetsen-one-regular {
@@ -13,10 +14,11 @@ h1 {
 .wrapper {
   margin-bottom: 10px;
   padding-bottom: 10px;
-  background-image: url(../public/weather-banner-vector.jpg);
+  /* background-image: url(../public/weather-banner-vector.jpg); */
+  background-image: linear-gradient(black, black);
   background-repeat: no-repeat;
   padding: 20px;
-  width: 100vw;
+  width: auto;
 }
 @media (max-width: 576px) {
   /* Further adjustments for smaller screens */

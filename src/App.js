@@ -57,6 +57,9 @@ function App() {
               Temperature: {weatherData.current.temp_c}°C or{" "}
               {weatherData.current.temp_f}°F
             </p>
+            {/* <p>{weatherData.current.wind_degree}</p>
+            <p>{weatherData.current.feelslike_c}</p>
+            <p>{weatherData.current.feelslike_f}</p> */}
 
             <p>Weather: {weatherData.current.condition.text}</p>
           </div>
