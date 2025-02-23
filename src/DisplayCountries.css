@@ -1,4 +1,3 @@
-/* Add this CSS to your stylesheets or within your React component */
 .countries-weather {
   display: flex;
   flex-direction: row;
@@ -9,7 +8,7 @@
 }
 
 .country-weather {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid #ccc;
@@ -17,7 +16,25 @@
   padding: 10px;
   width: 250px;
   background-color: #f9f9f9;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); */
+
+  width: 250px;
+  height: 150px;
+  border-radius: 10px;
+  color: #ffffff;
+  /* background-color: #333; */
+  background-image: url("http://imageplaceholder/40x40");
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
 }
 
 .country-weather h3 {
@@ -31,3 +48,48 @@
   font-size: 14px;
   color: #666;
 }
+.country-weather:hover {
+  transform: scale(1.05);
+}
+/* 
+.countries-weather {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.country-weather {
+  width: 250px;
+  height: 150px;
+  border-radius: 10px;
+  color: #ffffff;
+  background-color: #333;
+  background-image: url("./images/sunny.jpeg");
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  transition: transform 0.2s ease-in-out;
+}
+
+.country-weather h3 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+}
+
+.country-weather p {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.country-weather:hover {
+  transform: scale(1.05);
+} */

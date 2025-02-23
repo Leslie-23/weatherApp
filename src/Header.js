@@ -1,11 +1,10 @@
 import React from "react";
-import "./Header.css";
 
 const Header = () => {
   return (
-    <div className="wrapper">
-      <h1 className="poetsen-one-regular">
-        <span className="palTech">PALtech</span> weather
+    <div className=" bg-gray-800 text-white text-center py-5">
+      <h1 className="text-4xl md:text-5xl font-bold">
+        <span className="text-blue-400">PALtech</span> Weather
       </h1>
     </div>
   );

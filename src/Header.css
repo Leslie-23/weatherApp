@@ -1,7 +1,7 @@
 h1 {
   font-family: "Times New Roman", Times, serif;
-  padding-top: 7px;
   color: white;
+  /* padding-top: 7px; */
   /* font-weight: bold; */
 }
 .poetsen-one-regular {
@@ -9,15 +9,18 @@ h1 {
   font-weight: 400;
   font-size: 60px;
   font-style: normal;
+  margin: 0;
+  padding: 0;
 }
 
 .wrapper {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
+  /* margin-bottom: 10px; */
+  /* padding-bottom: 10px; */
   /* background-image: url(../public/weather-banner-vector.jpg); */
-  background-image: linear-gradient(black, black);
+  /* padding: 10px; */
+  /* background-image: linear-gradient(black, black); */
+  background: #333;
   background-repeat: no-repeat;
-  padding: 20px;
   width: auto;
 }
 @media (max-width: 576px) {
