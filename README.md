@@ -25,7 +25,7 @@ Install dependencies:
 
 ### `npm install`
 
-Create a .env file in the project root and add your WeatherAPI key:
+Create a `.env.local` file in the project root and add your WeatherAPI key:
 
 
 REACT_APP_WEATHER_API_KEY=your_weather_api_key_here

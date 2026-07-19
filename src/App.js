@@ -22,9 +22,7 @@ import {
   Wind,
 } from "lucide-react";
 import "./App.css";
-
-const API_KEY =
-  process.env.REACT_APP_WEATHER_API_KEY || "2a2391096eb24c028f694542240905";
+import { WEATHER_API_KEY, WEATHER_API_KEY_ERROR } from "./weatherConfig";
 
 const DEFAULT_CITY = "New York";
 const TRENDING_CITIES = ["Atlanta", "Miami", "Chicago", "Denver", "Seattle", "London"];
@@ -183,10 +181,17 @@ export default function WeatherApp() {
       setLoading(true);
       setError("");
 
+      if (!WEATHER_API_KEY) {
+        setWeatherData(null);
+        setError(WEATHER_API_KEY_ERROR);
+        setLoading(false);
+        return;
+      }
+
       try {
         const response = await axios.get("https://api.weatherapi.com/v1/forecast.json", {
           params: {
-            key: API_KEY,
+            key: WEATHER_API_KEY,
             q: submittedCity,
             days: 3,
             alerts: "yes",
@@ -221,12 +226,18 @@ export default function WeatherApp() {
     async function fetchMarkets() {
       setMarketLoading(true);
 
+      if (!WEATHER_API_KEY) {
+        setCityWeather([]);
+        setMarketLoading(false);
+        return;
+      }
+
       try {
         const responses = await Promise.all(
           TRENDING_CITIES.map((city) =>
             axios.get("https://api.weatherapi.com/v1/current.json", {
               params: {
-                key: API_KEY,
+                key: WEATHER_API_KEY,
                 q: city,
                 aqi: "no",
               },
@@ -324,8 +335,8 @@ export default function WeatherApp() {
                 placeholder="New York, Accra, Tokyo..."
                 autoComplete="off"
               />
-              <button type="submit" disabled={loading || !query.trim()}>
-                {loading ? "Loading" : "Get forecast"}
+              <button type="submit" disabled={!WEATHER_API_KEY || loading || !query.trim()}>
+                {WEATHER_API_KEY ? (loading ? "Loading" : "Get forecast") : "Add API key"}
               </button>
             </div>
           </form>

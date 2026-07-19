@@ -12,6 +12,7 @@ import {
   CloudSnow,
   CloudDrizzle,
 } from "lucide-react";
+import { WEATHER_API_KEY, WEATHER_API_KEY_ERROR } from "./weatherConfig";
 
 const countries = [
   { name: "New York", code: "USA", emoji: "🇺🇸" },
@@ -61,18 +62,32 @@ const DisplayCountriesWeather = () => {
   const [countriesWeather, setCountriesWeather] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
-
-  const apiKey = "2a2391096eb24c028f694542240905";
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchWeatherData = async () => {
       setLoading(true);
+      setError("");
+
+      if (!WEATHER_API_KEY) {
+        setCountriesWeather([]);
+        setError(WEATHER_API_KEY_ERROR);
+        setLoading(false);
+        return;
+      }
+
       try {
         const subset = countries.slice(currentIndex, currentIndex + 3);
         const responses = await Promise.all(
           subset.map((country) =>
             axios.get(
-              `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${country.code}`
+              "https://api.weatherapi.com/v1/current.json",
+              {
+                params: {
+                  key: WEATHER_API_KEY,
+                  q: country.code,
+                },
+              }
             )
           )
         );
@@ -97,6 +112,7 @@ const DisplayCountriesWeather = () => {
         setCountriesWeather(weatherData);
       } catch (error) {
         console.error("Error fetching weather data:", error);
+        setError("Weather data is temporarily unavailable.");
       } finally {
         setLoading(false);
       }
@@ -139,6 +155,12 @@ const DisplayCountriesWeather = () => {
           Live updates from major cities worldwide
         </p>
       </div>
+
+      {error && (
+        <p className="text-center text-red-300" role="alert">
+          {error}
+        </p>
+      )}
 
       {/* Weather Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
