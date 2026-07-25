@@ -159,7 +159,53 @@ function LoadingState() {
   return (
     <div className="loading-panel">
       <div className="loading-pulse" />
-      <p>Loading live weather desk...</p>
+      <p>Reading the instruments...</p>
+    </div>
+  );
+}
+
+const DIAL_TICKS = Array.from({ length: 12 }, (_, index) => ({
+  deg: index * 30,
+  major: index % 3 === 0,
+}));
+
+function InstrumentDial({ windDeg = 0, windDir, iconUrl, iconAlt, pressureLabel }) {
+  return (
+    <div
+      className="dial"
+      role="img"
+      aria-label={`Wind from the ${windDir}, ${round(windDeg)} degrees. ${pressureLabel}.`}
+    >
+      <div className="dial-circle">
+        <svg className="dial-face" viewBox="0 0 120 120" aria-hidden="true">
+          <circle cx="60" cy="60" r="58" className="dial-ring" />
+          <circle cx="60" cy="60" r="45" className="dial-ring-inner" />
+          {DIAL_TICKS.map((tick) => (
+            <line
+              key={tick.deg}
+              x1="60"
+              y1="6"
+              x2="60"
+              y2={tick.major ? 15 : 11}
+              className={tick.major ? "dial-tick major" : "dial-tick"}
+              transform={`rotate(${tick.deg} 60 60)`}
+            />
+          ))}
+        </svg>
+        <span className="dial-label n" aria-hidden="true">N</span>
+        <span className="dial-label e" aria-hidden="true">E</span>
+        <span className="dial-label s" aria-hidden="true">S</span>
+        <span className="dial-label w" aria-hidden="true">W</span>
+        <div
+          className="dial-needle"
+          aria-hidden="true"
+          style={{ transform: `translate(-50%, -100%) rotate(${windDeg}deg)` }}
+        />
+        <div className="dial-center" aria-hidden="true">
+          {iconUrl && <img src={iconUrl} alt="" />}
+        </div>
+      </div>
+      <span className="dial-readout">{pressureLabel}</span>
     </div>
   );
 }
@@ -294,7 +340,7 @@ export default function WeatherApp() {
           <span className="brand-mark">PW</span>
           <span>
             <strong>PALtech Weather</strong>
-            <small>Forecast desk</small>
+            <small>Field station</small>
           </span>
         </a>
         <nav className="topnav" aria-label="Weather sections">
@@ -306,26 +352,18 @@ export default function WeatherApp() {
       </header>
 
       <section className="hero" id="top">
-        <div
-          className="hero-media"
-          style={{
-            backgroundImage: `url(${process.env.PUBLIC_URL}/stock-photo-photos-of-sky-during-different-weather-collage-banner-design-1899360634.jpg)`,
-          }}
-          aria-hidden="true"
-        />
-        <div className="hero-shade" />
         <div className="hero-content">
           <div className="kicker">
             <Radio size={16} />
-            Live weather command center
+            Live observation feed
           </div>
-          <h1>Forecasts, alerts, and planning signals in one place.</h1>
+          <h1>Today&rsquo;s sky, logged and ready before you walk out the door.</h1>
           <p>
             Search any city for current conditions, hourly shifts, daily outlooks,
-            alert coverage, and a concise newsroom-style weather briefing.
+            alert coverage, and a concise weather briefing built from the same readings.
           </p>
           <form className="search-panel" onSubmit={handleSubmit}>
-            <label htmlFor="city-search">Search city</label>
+            <label htmlFor="city-search">Log a location</label>
             <div>
               <Search aria-hidden="true" />
               <input
@@ -364,13 +402,16 @@ export default function WeatherApp() {
                       <span>{weatherData.location.region || weatherData.location.country}</span>
                     </h2>
                   </div>
-                  <img
-                    src={`https:${weatherData.current.condition.icon}`}
-                    alt={weatherData.current.condition.text}
-                  />
                 </div>
 
                 <div className="temperature-row">
+                  <InstrumentDial
+                    windDeg={weatherData.current.wind_degree}
+                    windDir={weatherData.current.wind_dir}
+                    iconUrl={`https:${weatherData.current.condition.icon}`}
+                    iconAlt={weatherData.current.condition.text}
+                    pressureLabel={`${round(weatherData.current.pressure_mb)} mb`}
+                  />
                   <strong>{round(weatherData.current.temp_f)}°</strong>
                   <div>
                     <p>{weatherData.current.condition.text}</p>
@@ -537,17 +578,13 @@ export default function WeatherApp() {
                     </div>
                     <Compass aria-hidden="true" />
                   </div>
-                  <div
-                    className="map-board"
-                    style={{
-                      backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78)), url(${process.env.PUBLIC_URL}/weather-banner-vector.jpg)`,
-                    }}
-                  >
+                  <div className="map-board">
+                    <div className="radar-sweep" aria-hidden="true" />
+                    <div className="map-rings" aria-hidden="true" />
                     <div className="map-point primary">
                       <MapPin size={18} />
                       {weatherData.location.name}
                     </div>
-                    <div className="map-rings" />
                     <div className="map-data">
                       <span>Lat {weatherData.location.lat}</span>
                       <span>Lon {weatherData.location.lon}</span>
@@ -587,7 +624,7 @@ export default function WeatherApp() {
                 <section className="panel" id="briefing">
                   <div className="panel-heading">
                     <div>
-                      <p className="section-label">Newsroom briefing</p>
+                      <p className="section-label">Field notes</p>
                       <h2>What matters now</h2>
                     </div>
                     <Newspaper aria-hidden="true" />
