@@ -169,12 +169,15 @@ const DIAL_TICKS = Array.from({ length: 12 }, (_, index) => ({
   major: index % 3 === 0,
 }));
 
-function InstrumentDial({ windDeg = 0, windDir, iconUrl, iconAlt, pressureLabel }) {
+function InstrumentDial({ windDeg = 0, windDir, iconUrl, conditionText, pressureLabel }) {
+  const safeWindDir = windDir || "unknown direction";
+  const safeWindDeg = Number.isFinite(Number(windDeg)) ? Number(windDeg) : 0;
+
   return (
     <div
       className="dial"
       role="img"
-      aria-label={`Wind from the ${windDir}, ${round(windDeg)} degrees. ${pressureLabel}.`}
+      aria-label={`Wind from the ${safeWindDir}, ${round(safeWindDeg)} degrees. ${conditionText}. ${pressureLabel}.`}
     >
       <div className="dial-circle">
         <svg className="dial-face" viewBox="0 0 120 120" aria-hidden="true">
@@ -199,7 +202,7 @@ function InstrumentDial({ windDeg = 0, windDir, iconUrl, iconAlt, pressureLabel 
         <div
           className="dial-needle"
           aria-hidden="true"
-          style={{ transform: `translate(-50%, -100%) rotate(${windDeg}deg)` }}
+          style={{ transform: `translate(-50%, -100%) rotate(${safeWindDeg}deg)` }}
         />
         <div className="dial-center" aria-hidden="true">
           {iconUrl && <img src={iconUrl} alt="" />}
@@ -409,7 +412,7 @@ export default function WeatherApp() {
                     windDeg={weatherData.current.wind_degree}
                     windDir={weatherData.current.wind_dir}
                     iconUrl={`https:${weatherData.current.condition.icon}`}
-                    iconAlt={weatherData.current.condition.text}
+                    conditionText={weatherData.current.condition.text}
                     pressureLabel={`${round(weatherData.current.pressure_mb)} mb`}
                   />
                   <strong>{round(weatherData.current.temp_f)}°</strong>
