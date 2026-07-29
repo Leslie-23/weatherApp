@@ -1101,6 +1101,35 @@ h3 {
   gap: 10px;
 }
 
+.city-status {
+  margin: -4px 0 14px;
+  color: var(--muted-on-paper);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.city-empty {
+  display: grid;
+  place-items: center;
+  min-height: 150px;
+  border: 1px dashed var(--paper-line);
+  border-radius: var(--radius);
+  background: var(--paper-dim);
+  color: var(--muted-on-paper);
+  text-align: center;
+  padding: 20px;
+  font-weight: 700;
+}
+
+.city-empty svg {
+  color: var(--teal-deep);
+}
+
+.city-empty p {
+  margin: 10px 0 0;
+}
+
 .city-card {
   display: grid;
   min-height: 168px;

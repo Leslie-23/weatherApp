@@ -221,6 +221,7 @@ export default function WeatherApp() {
   const [activeDayIndex, setActiveDayIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [marketLoading, setMarketLoading] = useState(true);
+  const [marketError, setMarketError] = useState("");
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -274,6 +275,7 @@ export default function WeatherApp() {
 
     async function fetchMarkets() {
       setMarketLoading(true);
+      setMarketError("");
 
       if (!WEATHER_API_KEY) {
         setCityWeather([]);
@@ -282,7 +284,7 @@ export default function WeatherApp() {
       }
 
       try {
-        const responses = await Promise.all(
+        const results = await Promise.allSettled(
           TRENDING_CITIES.map((city) =>
             axios.get("https://api.weatherapi.com/v1/current.json", {
               params: {
@@ -295,10 +297,23 @@ export default function WeatherApp() {
         );
 
         if (!ignore) {
-          setCityWeather(responses.map((response) => response.data));
+          const successfulCities = results
+            .filter((result) => result.status === "fulfilled")
+            .map((result) => result.value.data);
+
+          setCityWeather(successfulCities);
+
+          if (successfulCities.length === 0) {
+            setMarketError("City watch is temporarily unavailable.");
+          } else if (successfulCities.length < TRENDING_CITIES.length) {
+            setMarketError("Some city readings are temporarily unavailable.");
+          }
         }
       } catch (err) {
-        if (!ignore) setCityWeather([]);
+        if (!ignore) {
+          setCityWeather([]);
+          setMarketError("City watch is temporarily unavailable.");
+        }
       } finally {
         if (!ignore) setMarketLoading(false);
       }
@@ -679,22 +694,36 @@ export default function WeatherApp() {
                   ))}
                 </div>
               ) : (
-                <div className="city-grid">
-                  {cityWeather.map((city) => (
-                    <article key={city.location.name} className="city-card">
-                      <div>
-                        <strong>{city.location.name}</strong>
-                        <span>{city.location.country}</span>
-                      </div>
-                      <img
-                        src={`https:${city.current.condition.icon}`}
-                        alt={city.current.condition.text}
-                      />
-                      <p>{round(city.current.temp_f)}°</p>
-                      <small>{city.current.condition.text}</small>
-                    </article>
-                  ))}
-                </div>
+                <>
+                  {marketError && (
+                    <p className="city-status" role="status">
+                      {marketError}
+                    </p>
+                  )}
+                  {cityWeather.length > 0 ? (
+                    <div className="city-grid">
+                      {cityWeather.map((city) => (
+                        <article key={city.location.name} className="city-card">
+                          <div>
+                            <strong>{city.location.name}</strong>
+                            <span>{city.location.country}</span>
+                          </div>
+                          <img
+                            src={`https:${city.current.condition.icon}`}
+                            alt={city.current.condition.text}
+                          />
+                          <p>{round(city.current.temp_f)}°</p>
+                          <small>{city.current.condition.text}</small>
+                        </article>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="city-empty">
+                      <Navigation aria-hidden="true" />
+                      <p>No city readings are available right now.</p>
+                    </div>
+                  )}
+                </>
               )}
             </section>
 
