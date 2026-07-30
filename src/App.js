@@ -48,8 +48,19 @@ const topStories = [
   },
 ];
 
+const DATE_ONLY_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+
+const parseDisplayDate = (value) => {
+  if (typeof value === "string" && DATE_ONLY_PATTERN.test(value)) {
+    const [year, month, day] = value.split("-").map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  return new Date(value);
+};
+
 const formatDate = (value, options = {}) =>
-  new Intl.DateTimeFormat("en-US", options).format(new Date(value));
+  new Intl.DateTimeFormat("en-US", options).format(parseDisplayDate(value));
 
 const formatHour = (value) =>
   new Intl.DateTimeFormat("en-US", {
